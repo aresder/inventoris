@@ -91,9 +91,10 @@
             </div>
         </div>
 
+
         @if (session('success'))
             <div id="alert"
-                class="flex gap-x-2 fixed top-0 right-0 z-50 bg-teal-900/90  backdrop-blur-xl opacity-100 p-6 rounded-md m-5 text-white w-96 transition-all">
+                class="flex gap-x-2 fixed top-0 right-0 z-50 bg-blue-900/70  backdrop-blur-xl opacity-100 p-6 rounded-md m-5 text-white w-96 transition-all">
                 <button id="alert-close"
                     class="absolute mr-4 -mt-0.5 right-0 border border-white rounded-md py-1 px-2 text-xs">X</button>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 -mt-0.5">
@@ -105,8 +106,8 @@
                 </svg>
                 <span>{{ session('success') }}</span>
                 <div id="progressBarContainer"
-                    class="absolute bottom-0 left-0 z-50 bg-teal-500 w-full h-2 opacity-0 rounded-md transition-opacity duration-1000">
-                    <div id="progressBar" class="bg-teal-700 h-full w-0 rounded-md"></div>
+                    class="absolute bottom-0 left-0 z-50 bg-blue-500 w-full h-2 opacity-0 rounded-md transition-opacity duration-1000">
+                    <div id="progressBar" class="bg-blue-700 h-full w-0 rounded-md"></div>
                 </div>
 
 
