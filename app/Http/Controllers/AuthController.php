@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -12,22 +14,41 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function registerStore(RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $validated = $request->validated();
 
         $user = User::create([
-            'name' => $validated['name'],
+            'full_name' => $validated['full_name'],
+            'username' => $validated['username'],
             'password' => $validated['password'],
         ]);
 
-        session()->flash('success', 'User berhasil dibuat.');
-
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat.');
     }
 
     public function loginView()
     {
         return view('auth.login');
+    }
+
+    public function login(LoginRequest $request)
+    {
+        // if (!User::where('username', $request->username)->exists()) {
+        //     return back()->with('warning', 'Akun belum terdaftar.');
+        // }
+
+        $validated = $request->validated();
+
+        $credentials = [
+            'username' => $validated['username'],
+            'password' => $validated['password']
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('dashboard')->with('success', "Hai, " . Auth::user()->full_name);
+        }
+
+        return back()->with('error', "Username / Password salah.");
     }
 }

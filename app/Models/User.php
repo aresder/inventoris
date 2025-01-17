@@ -18,7 +18,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'full_name',
+        'username',
         'code',
         'password',
     ];
@@ -51,7 +52,7 @@ class User extends Authenticatable
 
         static::creating(function ($user) {
             if (empty($user->code)) {
-                $user->code = 'U' . str_pad(User::count() + 1, 5, '0', STR_PAD_LEFT);
+                $user->code = 'U' . str_pad(User::count() + 1, 4, '0', STR_PAD_LEFT);
             }
         });
     }

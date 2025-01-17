@@ -22,7 +22,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
+            'full_name' => 'required|string|max:100',
+            'username' => 'required|string|max:100|unique:users,username',
             'password' => 'required|string|min:8|confirmed'
         ];
     }
@@ -30,9 +31,13 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Input name tidak boleh kosong.',
-            'name.string' => 'Input name harus bertipe string.',
-            'name.max' => 'Karakter melebih batas maksimal (100).',
+            'full_name.required' => 'Input full name tidak boleh kosong.',
+            'full_name.string' => 'Input full name harus bertipe string.',
+            'full_name.max' => 'Karakter melebih batas maksimal (100).',
+            'username.required' => 'Input username tidak boleh kosong.',
+            'username.string' => 'Input username harus bertipe string.',
+            'username.max' => 'Karakter melebih batas maksimal (100).',
+            'username.unique' => 'Username sudah digunakan.',
             'password.required' => 'Input password tidak boleh kosong.',
             'password.min' => 'Password minimal 8 karakter.',
             'password.confirmed' => 'Password tidak cocok.'

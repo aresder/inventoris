@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id()->unsigned();
             $table->string('code')->unique();
             $table->boolean("active")->default(1);
-            $table->string('name');
+            $table->string('full_name');
+            $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
