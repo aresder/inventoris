@@ -1,1 +1,1 @@
-<p align="center">Inventoris</p>
+<h1 align="center">Inventoris</h1>
