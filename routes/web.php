@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
@@ -21,4 +23,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
         return view('dashboard.index');
     })->name('dashboard');
+
+    Route::get('/users', [UserController::class, 'view'])->name('dashboard.users');
+    Route::get('/users/{username}', [UserController::class, 'getUser']);
+
+    Route::get('/products', [ProductController::class, 'view'])->name('dashboard.products');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('dashboard.logout');
 });

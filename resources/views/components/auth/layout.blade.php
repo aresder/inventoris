@@ -24,8 +24,9 @@
                     <h1 class=" text-5xl font-bold">Inventoris</h1>
                     <span id="slogan" class="text-white"></span>
                 </div>
+
                 <div class="w-1/2 bg-[#fffaf5] h-full rounded-xl">
-                    <div class="flex flex-col p-10 h-full">
+                    <div class="flex flex-col p-10 h-full  overflow-auto">
                         <div class="space-y-3">
                             <h1 class="font-semibold text-3xl">{{ $title ?? '...' }}</h1>
                             <p class="text-xs text-balance">
@@ -39,7 +40,7 @@
                             </form>
                         </div>
 
-                        <div class="mt-5 text-sm">
+                        <div class="mt-6 text-sm">
                             <p>{{ Request::is('login') ? 'Belum punya akun?' : 'Sudah punya akun?' }} <a
                                     href="{{ Request::is('login') ? route('register') : route('login') }}"
                                     class="hover:underline text-blue-500">{{ Request::is('login') ? 'Register' : 'Login' }}</a>

@@ -1,1 +1,1 @@
-<a {{ $attributes }} class="transition-all duration-500">{{ $slot }}</a>
+<a {{ $attributes }} class="transition-colors duration-300">{{ $slot }}</a>

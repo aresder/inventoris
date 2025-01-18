@@ -5,13 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
     <title>Inventoris</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -96,39 +92,12 @@
         </div>
     </footer>
 
-    <div class="fixed bottom-0 right-0 m-10 z-10">
-        <button id="top-arrow"
-            class="text-white border border-slate-500 bg-slate-800 px-4 py-2 rounded-lg text-center translate-y-2/4 transition-all duration-300">&UpArrow;</button>
+    <div x-data="{ show: false }" @scroll.window="show = window.scrollY > 500" class="fixed bottom-0 right-0 m-10 z-10">
+        <button x-show="show" @click="window.scrollTo({top: 0})" x-transition.opacity.duration.500ms
+            class="text-white border border-slate-500 bg-slate-800 px-4 py-2 rounded-lg text-center">
+            &UpArrow;
+        </button>
     </div>
-
-    <script>
-        const top_arrow = document.getElementById("top-arrow")
-        top_arrow.classList.add("opacity-0", "pointer-events-none")
-
-        document.addEventListener("scroll", (ev) => {
-            const scrollY = window.scrollY
-            const home = document.getElementById("home")
-            const feat = document.getElementById("feat")
-
-            if (scrollY <= 650) {
-                home.classList.add("text-red-500")
-                feat.classList.remove("text-red-500")
-                top_arrow.classList.add("opacity-0", "pointer-events-none")
-                top_arrow.classList.remove("opacity-100")
-            } else if (scrollY >= 650) {
-                top_arrow.classList.remove("opacity-0", "pointer-events-none")
-                top_arrow.classList.remove("opacity-100")
-                home.classList.remove("text-red-500")
-                feat.classList.add("text-red-500")
-            }
-        })
-
-        top_arrow.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0
-            });
-        });
-    </script>
 </body>
 
 </html>
