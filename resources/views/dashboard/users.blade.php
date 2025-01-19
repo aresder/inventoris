@@ -22,15 +22,15 @@
     </div>
 
     <div class="mt-10">
-        <div>
+        <div class="border border-gray-800 rounded">
             <table class="w-full text-sm text-left rtl:text-right text-white">
                 <thead class="uppercase bg-gray-700 text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Full Name
+                            Code
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Code
+                            Full Name
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Created at
@@ -44,10 +44,10 @@
                     @foreach ($users as $index => $user)
                         <tr class="border-b bg-gray-800 border-gray-700">
                             <td class="px-6 py-4">
-                                {{ $user['full_name'] }}
+                                {{ $user['code'] }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $user['code'] }}
+                                {{ $user['full_name'] }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $user['created_at']->toFormattedDateString() }}

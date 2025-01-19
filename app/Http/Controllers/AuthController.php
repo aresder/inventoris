@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public static function getUserFullName()
+    public static function getUserName()
     {
         if (Auth::check()) {
-            return Auth::user()->full_name;
+            return Auth::user()->username;
         }
     }
 
@@ -53,7 +53,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', "Hai, " . self::getUserFullName());
+            return redirect()->route('dashboard')->with('success', "Hai, " . self::getUserName());
         }
 
         return back()->with('error', "Username / Password salah.");
@@ -61,7 +61,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        session()->flash('success', 'Bye 👋 ' . self::getUserFullName());
+        session()->flash('success', 'Bye 👋 ' . self::getUserName());
         Auth::logout();
         return redirect()->route('login');
     }

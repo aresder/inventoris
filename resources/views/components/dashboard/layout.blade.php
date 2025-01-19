@@ -23,7 +23,7 @@
                     <div class="flex flex-col justify-between m-4 h-full">
                         <div class="flex flex-col items-start gap-y-4 text-lg">
                             <a href="{{ route('dashboard') }}"
-                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('dashboard') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }}">
+                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('dashboard') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }} transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-5 mt-0.5">
                                     <path fill-rule="evenodd"
@@ -33,7 +33,7 @@
                                 <span>Dashboard</span></a>
 
                             <a href="{{ route('dashboard.users') }}"
-                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('users') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }}"><svg
+                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('users') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }} transition-colors duration-300"><svg
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-5 mt-0.5">
                                     <path
@@ -42,7 +42,7 @@
                                 <span>Users</span></a>
 
                             <a href="{{ route('dashboard.products') }}"
-                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('products') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }}">
+                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('products') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }} transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-5 mt-0.5">
                                     <path fill-rule="evenodd"
@@ -52,6 +52,15 @@
                                         d="M1 14a1 1 0 0 1 1-1h4a1 1 0 0 1 .894.553l.448.894a1 1 0 0 0 .894.553h3.438a1 1 0 0 0 .86-.49l.606-1.02A1 1 0 0 1 14 13h4a1 1 0 0 1 1 1v2a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2Z" />
                                 </svg>
                                 <span>Products</span></a>
+
+                            <a href="{{ route('dashboard.categories') }}"
+                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('categories') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }} transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="size-5 mt-0.5">
+                                    <path
+                                        d="M5.127 3.502 5.25 3.5h9.5c.041 0 .082 0 .123.002A2.251 2.251 0 0 0 12.75 2h-5.5a2.25 2.25 0 0 0-2.123 1.502ZM1 10.25A2.25 2.25 0 0 1 3.25 8h13.5A2.25 2.25 0 0 1 19 10.25v5.5A2.25 2.25 0 0 1 16.75 18H3.25A2.25 2.25 0 0 1 1 15.75v-5.5ZM3.25 6.5c-.04 0-.082 0-.123.002A2.25 2.25 0 0 1 5.25 5h9.5c.98 0 1.814.627 2.123 1.502a3.819 3.819 0 0 0-.123-.002H3.25Z" />
+                                </svg>
+                                <span>Categories</span></a>
                         </div>
 
                         <div class="mb-8 w-full">
@@ -78,6 +87,8 @@
         </div>
 
         <div class="w-full m-8">
+            <h1 class="text-3xl font-bold">{{ $title }}</h1>
+            <p class="text-sm">{{ $desc }}</p>
             <div>{{ $slot }}</div>
         </div>
     </div>

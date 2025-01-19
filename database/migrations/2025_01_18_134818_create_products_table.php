@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->unsigned()->autoIncrement()->primary();
             $table->string('code', 100)->unique();
-            $table->enum('status', ['stock', 'restock'])->default('stock');
-            $table->boolean('active')->default(true);
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->boolean('status')->default(true);
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
             $table->string('name', 100);
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('quantity');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
