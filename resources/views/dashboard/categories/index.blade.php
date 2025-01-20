@@ -1,9 +1,4 @@
-<x-dashboard.layout>
-    <div>
-        <h1 class="text-3xl font-bold">Categories</h1>
-        <p class="text-sm">Daftar seluruh category.</p>
-    </div>
-
+<x-dashboard.layout title="Category" desc="Daftar seluruh category.">
     <div class="mt-10 space-y-4">
         <a href="{{ route('dashboard.categories.add') }}"
             class="inline-block bg-blue-700 text-white rounded py-2 px-4 hover:bg-blue-800 active:scale-90 transition-all">

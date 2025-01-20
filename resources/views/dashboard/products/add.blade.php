@@ -1,4 +1,4 @@
-<x-dashboard.layout>
+<x-dashboard.layout title="User" desc="kvndk">
     <h1 class="text-3xl font-bold">New Product</h1>
     <p class="text-sm">Add new product</p>
 

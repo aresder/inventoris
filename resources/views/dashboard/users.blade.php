@@ -1,9 +1,4 @@
-<x-dashboard.layout>
-    <div>
-        <h1 class="text-3xl font-bold">Users</h1>
-        <p class="text-sm">Daftar seluruh user.</p>
-    </div>
-
+<x-dashboard.layout title="Users" desc="Seluruh data user.">
     <div class="mt-8 flex gap-x-4">
         <div
             class="relative flex-1 border border-gray-700 w-fit p-4 rounded bg-sky-800 text-white space-y-3 overflow-hidden">

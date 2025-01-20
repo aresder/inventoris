@@ -1,7 +1,4 @@
-<x-dashboard.layout>
-    <h1 class="text-3xl font-bold">New Category</h1>
-    <p class="text-sm">Add new category</p>
-
+<x-dashboard.layout title="New Category" desc="Add new category">
     <div class="border border-gray-800 mt-16 bg-gray-800 text-white rounded p-10">
         <form action="{{ route('dashboard.categories.add') }}" method="POST">
             <div class="flex flex-col justify-center items-center gap-y-10">
