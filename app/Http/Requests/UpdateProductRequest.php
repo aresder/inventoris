@@ -3,16 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class CategoryRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -23,15 +22,11 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'description' => 'nullable'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Input name tidak boleh kosong.'
+            'name' => 'sometimes|required',
+            'category_id' => 'sometimes|required',
+            'description' => 'sometimes|nullable',
+            'price' => 'sometimes|required|numeric|min:0',
+            'quantity' => 'sometimes|required|numeric|min:0',
         ];
     }
 }

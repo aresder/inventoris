@@ -66,7 +66,7 @@
                         <div class="mb-8 w-full">
                             <form action="{{ route('dashboard.logout') }}" method="POST">
                                 @csrf
-                                <button @click="open = !open"
+                                <button @click="open = !open" onclick="return confirm('Anda yakin?')"
                                     class="flex gap-x-2 w-full text-start text-red-500 rounded p-2 hover:bg-red-500 hover:text-white transition-colors duration-300">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                         class="size-5 mt-0.5">

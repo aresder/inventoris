@@ -6,31 +6,54 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 class CategoryProductController extends Controller
 {
-    public function view()
+    private $ref = null;
+
+    public function view(Request $request)
     {
-        $categories = Category::orderBy('code')->paginate(15);
+        $perPage = $request->input('per_page', 5);
+        $orderBy = $request->input('order_by', 'code');
+        $direction = $request->input('direction', 'asc');
+
+        if (!in_array($perPage, [5, 15, 50, 100])) {
+            $perPage = 5;
+        }
+
+        $categories = Category::orderBy($orderBy, $direction)->paginate($perPage)->appends($request->query());
         if ($categories->total() == 0) {
             $categories = null;
         }
-        return view('dashboard.categories.index', ['categories' => $categories]);
+        return view('dashboard.categories.index', ['categories' => $categories, 'perPage' => $perPage, 'orderBy' => $orderBy, 'direction' => $direction]);
     }
 
-    public function addView()
+    public function addView(Request $request)
     {
-        return view('dashboard.categories.add');
+        $ref = $request->input('ref');
+        return view('dashboard.categories.add', ['ref' => $ref]);
     }
 
     public function add(CategoryRequest $request)
     {
         $validated = $request->validated();
-        $category = Category::create([
+        Category::create([
             'name' => $validated['name'],
             'description' => $validated['description']
         ]);
-        return redirect()->route('dashboard.categories')->with('success', 'Data berhasil ditambahkan.');
+
+        $ref = $request->input('ref');
+        $route = 'categories';
+        if ($ref == 'products') {
+            $route = 'products.add';
+        }
+
+        Log::info($this->ref);
+        Log::info($route);
+
+        return redirect()->route('dashboard.' . $route)->with('success', 'Category berhasil ditambahkan.');
     }
 
     public function delete($id)
@@ -40,14 +63,5 @@ class CategoryProductController extends Controller
             return redirect()->route('dashboard.categories');
         }
         return redirect()->route('dashboard.categories')->with('success', 'Data berhasil dihapus.');
-    }
-
-    public function detailView($code)
-    {
-        $product = Product::where('code', '=', $code)->first();
-        if (is_null($product)) {
-            return back()->with('error', 'Data tidak ditemukan');
-        }
-        return view('dashboard.products.detail', ['product' => $product]);
     }
 }

@@ -53,7 +53,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', "Hai, " . self::getUserName());
+            return redirect()->route('dashboard')->with('success', 'Welcome, ' . self::getUserName() . '👋');
         }
 
         return back()->with('error', "Username / Password salah.");

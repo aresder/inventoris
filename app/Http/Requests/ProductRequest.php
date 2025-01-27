@@ -25,8 +25,24 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'category_id' => 'required',
             'description' => 'nullable',
-            'price' => 'required',
-            'quantity' => 'required',
+            'price' => 'required|numeric|min:0|max:2000000000',
+            'quantity' => 'required|numeric|min:0|max:2000000000',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Input name tidak boleh kosong.',
+            'category_id.required' => 'Input category tidak boleh kosong.',
+            'price.required' => 'Input price tidak boleh kosong.',
+            'price.numeric' => 'Input price harus berupa angka.',
+            'price.min' => 'Input price tidak boleh angka minus (-).',
+            'price.max' => 'Batas maximum 2.000.000.000',
+            'quantity.required' => 'Input quantity tidak boleh kosong.',
+            'quantity.numeric' => 'Input quantity harus berupa angka.',
+            'quantity.min' => 'Input quantity tidak boleh angka minus (-).',
+            'quantity.max' => 'Batas maximum 2.000.000.000',
         ];
     }
 }

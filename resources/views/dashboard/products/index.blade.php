@@ -140,7 +140,7 @@
                 </thead>
                 <tbody class="relative">
                     @if (is_null($products))
-                        <tr class="text-black left-2/4 top-2/4 -mt-10 fixed text-center">
+                        <tr class="text-black left-2/4 top-2/4 mt-10 fixed text-center">
                             <td>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-16 w-full">
