@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public static function boot()
     {
         parent::boot();

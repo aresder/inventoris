@@ -133,13 +133,8 @@
                                     {{ $category['created_at']->toFormattedDateString() }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('dashboard.categories.delete', $category['id']) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Yakin data dihapus?')"
-                                            class="border border-red-500 rounded py-px px-2 hover:bg-red-500 transition-colors">Delete</button>
-                                    </form>
+                                    <a href="{{ route('dashboard.categories.detail', ['code' => $category['code']]) }}"
+                                        class="border border-blue-500 rounded py-px px-2 hover:bg-blue-500 transition-colors">Detail</a>
                                 </td>
                             </tr>
                         @endforeach

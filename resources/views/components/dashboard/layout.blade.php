@@ -63,7 +63,16 @@
                                 <span>Categories</span></a>
                         </div>
 
-                        <div class="mb-8 w-full">
+                        <div class="mb-8 w-full space-y-4">
+                            <a href="{{ route('dashboard.profile') }}"
+                                class="flex gap-x-2 w-full rounded p-2 {{ Request::is('profile') ? 'bg-slate-700/60 text-blue-500' : 'hover:bg-slate-700' }} transition-colors duration-300"><svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="size-5">
+                                    <path
+                                        d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                                </svg>
+                                <span>Profile</span></a>
+
                             <form action="{{ route('dashboard.logout') }}" method="POST">
                                 @csrf
                                 <button @click="open = !open" onclick="return confirm('Anda yakin?')"
@@ -87,8 +96,8 @@
         </div>
 
         <div class="w-full m-8">
-            <h1 class="text-3xl font-bold">{{ $title }}</h1>
-            <p class="text-sm">{{ $desc }}</p>
+            <h1 class="text-3xl font-bold">{{ $title ?? '' }}</h1>
+            <p class="text-sm">{{ $desc ?? '' }}</p>
             <div>{{ $slot }}</div>
         </div>
     </div>

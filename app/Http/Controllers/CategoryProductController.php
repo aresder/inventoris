@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\UpdateCategoryProductRequest;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryProductController extends Controller
 {
-    private $ref = null;
-
     public function view(Request $request)
     {
         $perPage = $request->input('per_page', 5);
@@ -50,18 +47,47 @@ class CategoryProductController extends Controller
             $route = 'products.add';
         }
 
-        Log::info($this->ref);
-        Log::info($route);
-
         return redirect()->route('dashboard.' . $route)->with('success', 'Category berhasil ditambahkan.');
     }
 
-    public function delete($id)
+    public function detailView(string $code)
     {
-        $category = Category::destroy($id);
+        $category = Category::query()->where("code", $code)->first();
+
+        if (is_null($category)) {
+            return back()->with('error', 'Data tidak ditemukan');
+        }
+
+        return view('dashboard.categories.detail', ['category' => $category]);
+    }
+
+    public function update($code, UpdateCategoryProductRequest $request)
+    {
+        if (Auth::check() == false) {
+            return redirect()->route('login')->with('error', 'Silahkan login terlebih dulu.');
+        }
+
+        $validated = $request->validated();
+        $category = Category::query()->where('code', $code)->first();
+        $category->update($validated);
+
+        $category->save();
+        return redirect()->route('dashboard.categories')->with('success', 'Category berhasil diperbarui.');
+    }
+
+    public function delete($code)
+    {
+        if (Auth::check() == false) {
+            return redirect()->route('login')->with('error', 'Silahkan login terlebih dulu.');
+        }
+
+        $category = Category::query()->where('code', $code)->first();
+        $category->delete();
+
         if (!$category) {
             return redirect()->route('dashboard.categories');
         }
+
         return redirect()->route('dashboard.categories')->with('success', 'Data berhasil dihapus.');
     }
 }

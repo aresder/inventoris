@@ -47,13 +47,9 @@ class AuthController extends Controller
 
         $validated = $request->validated();
 
-        $credentials = [
-            'username' => $validated['username'],
-            'password' => $validated['password']
-        ];
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Welcome, ' . self::getUserName() . '👋');
+        if (Auth::attempt($validated)) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard')->with('success', 'Welcome, ' . self::getUserName() . '👋');
         }
 
         return back()->with('error', "Username / Password salah.");
@@ -63,6 +59,8 @@ class AuthController extends Controller
     {
         session()->flash('success', 'Bye 👋 ' . self::getUserName());
         Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
         return redirect()->route('login');
     }
 }

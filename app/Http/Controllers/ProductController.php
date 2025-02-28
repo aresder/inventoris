@@ -6,12 +6,16 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProductController extends Controller
 {
     public function view(Request $request)
     {
+        $user = Auth::user();
+
         $perPage = $request->input('per_page', 5);
         $orderBy = $request->input('order_by', 'code');
         $direction = $request->input('direction', 'asc');
@@ -20,10 +24,14 @@ class ProductController extends Controller
             $perPage = 5;
         }
 
-        $products = Product::query()->with('category')->orderBy($orderBy, $direction)->paginate($perPage)->appends($request->query());
-        if ($products->total() == 0) {
+        $products = $user->products();
+        $products = $products->where('user_id', $user->id);
+        $products = $products->orderBy($orderBy, $direction)->paginate($perPage)->appends($request->query());
+
+        if ($products->total() < 1) {
             $products = null;
         }
+
         return view('dashboard.products.index', ['products' => $products, 'perPage' => $perPage, 'orderBy' => $orderBy, 'direction' => $direction]);
     }
 
@@ -31,12 +39,15 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $products = Product::all();
-        return view('dashboard.products.add', ['categories' => $categories, 'products' => $products]);
+        $user = Auth::user();
+        $user_id = $user->id;
+        return view('dashboard.products.add', ['categories' => $categories, 'products' => $products, 'user' => $user_id]);
     }
 
     public function add(ProductRequest $request)
     {
         $validated = $request->validated();
+        $user = Auth::user();
 
         Product::create([
             'name' => $validated['name'],
@@ -44,6 +55,7 @@ class ProductController extends Controller
             'description' => $validated['description'],
             'price' => $validated['price'],
             'quantity' => $validated['quantity'],
+            'user_id' => $user->id
         ]);
 
         return redirect()->route('dashboard.products')->with('success', 'Product berhasil ditambahkan.');
@@ -51,7 +63,7 @@ class ProductController extends Controller
 
     public function detailView($code)
     {
-        $product = Product::where('code', '=', $code)->first();
+        $product = Product::where('code', $code)->first();
         $category = $product->category;
         $categories = Category::all();
 

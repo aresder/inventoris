@@ -18,10 +18,10 @@
                         <div class="w-full">
                             <div class="space-y-8">
                                 <div class="flex w-full justify-between items-center">
-                                    <label for="name" class="text-lg font-medium flex-1">Code</label>
-                                    <input type="text" id="code"
-                                        class="border-2 border-transparent outline-transparent flex-1 bg-slate-900 rounded py-1 px-3 text-white focus:outline-none focus:border-2 focus:border-slate-400 transition-colors ease-in-out duration-500 disabled:opacity-60"
-                                        value="{{ $product['code'] }}" disabled>
+                                    <p class="text-lg font-medium flex-1">Code</p>
+                                    <p
+                                        class="border-2 border-transparent outline-transparent flex-1 px-3 text-white focus:outline-none focus:border-2 focus:border-slate-400 transition-colors ease-in-out duration-500 disabled:opacity-60">
+                                        {{ $product['code'] }}</p>
                                 </div>
 
                                 <div class="flex flex-col ">

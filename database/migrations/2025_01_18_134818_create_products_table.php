@@ -15,14 +15,17 @@ return new class extends Migration
             $table->integer('id')->unsigned()->autoIncrement()->primary();
             $table->string('code', 100)->unique();
             $table->boolean('status')->default(true);
-            $table->integer('category_id')->unsigned()->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
             $table->string('name', 100);
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('quantity');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
+
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
