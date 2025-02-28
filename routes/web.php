@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {
-        $json = storage_path('/app/data/home/features.json');
+        $json = storage_path('app\data\home\features.json');
         $data = json_decode(file_get_contents($json), true);
 
         return view('home', $data);
